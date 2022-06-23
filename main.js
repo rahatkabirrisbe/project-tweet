@@ -1,6 +1,7 @@
 const formEl = document.querySelector('form')
 const inputEl = document.querySelector('.tweet-input')
 const ol = document.querySelector('ol')
+const searchEl = document.querySelector('.search')
 // const searchEl = document.querySelector('')
 let data = [];
 
@@ -22,13 +23,47 @@ ol.addEventListener('click', (e)=>{
         const id = getID(e.target)
         console.log(id);
         removeFromUI(id)
-        removeDataFromTrack(id)
+        data = removeDataFromTrack(data, id)
+        removeDataFromLocalStorage(id)
     }
 })
+searchEl.addEventListener('keyup', (e)=>{
+    const filterData = filterTweets(e.target.value)
+    showFilterItemToUI(filterData)
 
+})
+
+document.addEventListener('DOMContentLoaded', showTweetFromLocalStorage)
 // logical function
-function removeDataFromTrack(id){
-    data = data.filter(tweet => {
+function removeDataFromLocalStorage(id){
+    const oldData = JSON.parse(localStorage.getItem('Tweets'))
+    const updatedData = removeDataFromTrack(oldData, id)
+    localStorage.setItem('Tweets', JSON.stringify(updatedData))
+
+}
+
+function showTweetFromLocalStorage(){
+    const localData = JSON.parse(localStorage.getItem('Tweets'))
+    if(localStorage.getItem('Tweets')){
+        data = localData;
+        showFilterItemToUI(localData);
+    }    
+}
+
+function showFilterItemToUI(data){
+    ol.innerHTML = '';
+    data.forEach(tweets => {
+        const listEl = `<li id="item-${tweets.id}">${tweets.tweet} <i class="fa fa-trash"></i></li>`
+        ol.insertAdjacentHTML('beforeend', listEl)
+    })
+}
+
+function filterTweets(value){
+    return data.filter(tweets => tweets.tweet.includes(value) )
+}
+
+function removeDataFromTrack(data,id){
+    return data.filter(tweet => {
         return tweet.id !== id
     })
 }

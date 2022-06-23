@@ -26,3 +26,6 @@ form button {
   background-color: black;
   color: white;
 }
+.fa-trash {
+  margin-left: 5px;
+}

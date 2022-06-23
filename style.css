@@ -1,0 +1,28 @@
+.container {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+.tweet {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.heading {
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid black;
+}
+.left,
+.right {
+  padding: 10px;
+  border: 1.5px solid black;
+}
+form button {
+  border: none;
+  padding: 5px 8px;
+  border-radius: 2px;
+  margin-top: 10px;
+  background-color: black;
+  color: white;
+}

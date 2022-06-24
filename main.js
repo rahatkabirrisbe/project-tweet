@@ -11,11 +11,16 @@ formEl.addEventListener('submit', (e) => {
     const inputValue = inputEl.value;
     const id = data.length + 1;
     // console.log(inputValue);
-    createList(inputValue, id);
-    resetValue(inputEl)
-    const eachData = dataCreate(id, inputValue)
-    data.push(eachData)
-    dataAddToLocalStorage(id, inputValue)
+    const valid = validationCheck(inputValue)
+    if(valid){
+        createList(inputValue, id);
+        resetValue(inputEl)
+        const eachData = dataCreate(id, inputValue)
+        data.push(eachData)
+        dataAddToLocalStorage(id, inputValue)
+    }else{
+        alert('your input length must be bigger than 5!')
+    }
 })
 ol.addEventListener('click', (e)=>{
     if(e.target.classList.contains('fa-trash')){
@@ -35,6 +40,11 @@ searchEl.addEventListener('keyup', (e)=>{
 
 document.addEventListener('DOMContentLoaded', showTweetFromLocalStorage)
 // logical function
+function validationCheck(tweet){
+    if(tweet.length < 5){
+        return false
+    } return true;
+}
 function removeDataFromLocalStorage(id){
     const oldData = JSON.parse(localStorage.getItem('Tweets'))
     const updatedData = removeDataFromTrack(oldData, id)

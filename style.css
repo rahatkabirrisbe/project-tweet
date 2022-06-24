@@ -36,3 +36,12 @@ form button {
   border: none;
   border-bottom: 1px solid gray;
 }
+ol > li {
+  background-color: rgb(208, 195, 221);
+  margin: 5px;
+}
+
+.text-count {
+  width: 100%;
+  text-align: right;
+}

@@ -3,8 +3,44 @@ const inputEl = document.querySelector('.tweet-input')
 const ol = document.querySelector('ol')
 const searchEl = document.querySelector('.search')
 // const searchEl = document.querySelector('')
-let data = [];
+const textCountEl = document.querySelector('.text-count')
 
+const time = dateFns.format(new Date(), "h:ma")
+
+// data layer
+let data = [];
+let maxCharLimit = 250;
+
+textCountEl.textContent = `${maxCharLimit} remaining`
+
+inputEl.addEventListener('input', (e)=>{
+
+    
+    const textLength = inputEl.value.length;
+    if(textLength <= maxCharLimit){
+        const remaining = maxCharLimit - textLength;
+        const color = remaining < maxCharLimit * 0.1 ? 'red' : null;
+    
+        textCountEl.textContent = `${remaining} remaining`
+        textCountEl.style.color = color
+    }
+
+    // if(textLimit <= textLength && e.key !== 'Backspace'){
+    //     // console.log('stop');
+    //     e.preventDefault();
+    //     return
+    // }
+    
+    // if(e.key === 'Backspace'){
+    //     textLength = textLength - 1;
+    //     textCountEl.textContent = `${textLength} / ${textLimit}`
+    // } else{
+    //     textCountEl.textContent = `${textLength} / ${textLimit}`
+    // }
+   
+
+
+})
 // eventListener
 formEl.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -110,7 +146,9 @@ function dataCreate(id, tweet){
 }
 
 function createList(value, id){
-    const listEl = `<li id="item-${id}">${value} <i class="fa fa-trash"></i></li>`
+    const listEl = `<li id="item-${id}">${value}<i class="fa fa-trash"></i></li> <strong>${time}</strong>
+    `
+    
     ol.insertAdjacentHTML('beforeend', listEl)
 
 }
